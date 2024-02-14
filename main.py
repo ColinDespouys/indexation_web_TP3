@@ -74,6 +74,6 @@ def create_results_json(query, documents, index, filter_type):
 
 
 # Exemple d'utilisation
-query = "dvd porno"
+query = "manger équilibré"
 filter_type = 'OU'
 create_results_json(query, documents, index, filter_type)
