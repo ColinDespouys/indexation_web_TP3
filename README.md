@@ -6,9 +6,7 @@ Ce programme permet de rechercher des documents dans une collection en utilisant
 
 ## Installation et Utilisation
 
-1. **Installation des dépendances** : Assurez-vous d'avoir les dépendances requises installées. Vous pouvez les installer en exécutant `pip install -r requirements.txt`.
-
-2. **Exécution du Programme** : Lancez le programme en exécutant `python main.py`. Assurez-vous que les fichiers de données nécessaires sont présents dans le dossier `data`.
+**Exécution du Programme** : Lancez le programme en exécutant `python main.py`. Assurez-vous que les fichiers de données nécessaires sont présents dans le dossier `data`.
 
 ## Explication du Code
 
@@ -34,4 +32,4 @@ Les documents pertinents sont ensuite formatés dans un fichier JSON contenant d
 
 ## Fonctionnement du Classement des Documents
 
-Dans cet exemple, nous avons utilisé une approche de pondération TF-IDF pour classer les documents. TF-IDF est une méthode couramment utilisée pour évaluer l'importance d'un terme dans un document relativement à une collection de documents. Cela permet de mettre en avant les termes les plus discriminants et de réduire l'importance des termes fréquents mais peu discriminants (comme les "stop words"). Ainsi, les documents contenant des termes rares mais significatifs seront mieux classés que ceux contenant des termes fréquents mais peu informatifs.
+Nous avons utilisé une approche de pondération TF-IDF pour classer les documents. TF-IDF est une méthode couramment utilisée pour évaluer l'importance d'un terme dans un document relativement à une collection de documents. Cela permet de mettre en avant les termes les plus discriminants et de réduire l'importance des termes fréquents mais peu discriminants (comme les "stop words"). Ainsi, les documents contenant des termes rares mais significatifs seront mieux classés que ceux contenant des termes fréquents mais peu informatifs.
