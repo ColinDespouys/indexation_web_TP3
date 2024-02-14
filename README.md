@@ -1,5 +1,7 @@
 # Fonctionnement du Programme de Recherche de Documents
 
+Elève : DESPOUYS Colin
+
 Ce programme permet de rechercher des documents dans une collection en utilisant une approche de recherche textuelle. Il prend en entrée une requête de recherche et renvoie les documents pertinents en fonction de cette requête.
 
 ## Installation et Utilisation
