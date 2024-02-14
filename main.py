@@ -1,7 +1,5 @@
 import json
-import re
-from collections import defaultdict, Counter
-import nltk
+from collections import defaultdict
 
 # 1. Lire le fichier JSON
 # Charger les données JSON avec l'encodage correct
@@ -37,17 +35,13 @@ from math import log
 
 # Fonction de ranking avec TF-IDF
 def rank_documents(relevant_docs, index, query_tokens, documents):
-    k1 = 1.5
-    b = 0.75
-    avg_doc_length = sum(len(doc['title']) for doc in documents) / len(documents)
     num_documents = len(documents)
-    doc_lengths = {doc['id']: len(doc['title']) for doc in documents}
     idf_scores = defaultdict(float)
 
     # Calculer IDF pour chaque token dans la requête
     for token in query_tokens:
         if token in index:
-            idf_scores[token] = log((num_documents - len(index[token]) + 0.5) / (len(index[token]) + 0.5) + 1)
+            idf_scores[token] = log(num_documents / len(index[token]))
 
     # Calculer le score pour chaque document
     ranked_docs = []
@@ -56,14 +50,12 @@ def rank_documents(relevant_docs, index, query_tokens, documents):
         for token in query_tokens:
             if token in index and doc_id in index[token]:
                 token_info = index[token][doc_id]
-                # Calcul de BM25 pour le token dans le document
-                tf = token_info['count']
-                doc_length = doc_lengths[doc_id]
-                idf = idf_scores[token]
-                score += idf * ((tf * (k1 + 1)) / (tf + k1 * (1 - b + b * (doc_length / avg_doc_length))))
+                # Ponderer le score avec TF-IDF
+                tf_idf = (1 + log(token_info['count'])) * idf_scores[token]
+                score += tf_idf
         ranked_docs.append((doc_id, score))
 
-    return sorted(ranked_docs, key=lambda x: x[1], reverse=True)
+    return sorted(ranked_docs, key=lambda x: x[1], reverse=True)  # Classement par score décroissant
 
 # Renvoyer les résultats au format JSON
 def create_results_json(query, documents, index, filter_type):
@@ -77,11 +69,11 @@ def create_results_json(query, documents, index, filter_type):
         if doc_info:
             results['documents'].append({'title': doc_info['title'], 'url': doc_info['url']})
     
-    with open('result/results.json', 'w', encoding='utf-8') as file:  # Spécifier l'encodage UTF-8
+    with open('result/results.json', 'w', encoding='utf-8') as file:  
         json.dump(results, file, indent=4, ensure_ascii=False)  # Assurez-vous que les caractères non-ASCII ne soient pas échappés
 
 
 # Exemple d'utilisation
-query = "dvd erreur"
+query = "manger végétarien"
 filter_type = 'OU'
 create_results_json(query, documents, index, filter_type)
